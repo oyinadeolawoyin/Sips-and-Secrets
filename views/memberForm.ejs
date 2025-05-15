@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+    <% } %>
+    <form action="/memberForm" method="POST">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+        <label for="passcodeMember">Enter passcode to become a member</label>
+        <input type="text" id="passcodeMember" name="passcodeMember" placeholder="Input MEMBER">
+        <label for="passcodeAdmin">Enter passcode to become an admin</label>
+        <input type="text" id="passcodeAdmin" name="passcodeAdmin" placeholder="Input ADMIN">
+        <button type="submit">Submit</button>  
+    </form>
+</body>
+</html>
