@@ -14,9 +14,34 @@
             <p><strong>Status:</strong></p>
             <p>Membership: <%= user.membership ? "Member" : "Not Member" %></p>
             <p>Admin: <%= user.admin ? "Admin" : "Not Admin" %></p>
+            <div>
+                <p>Posts</p>
+                <% if (posts.length === 0) { %>
+                    <p>No posts found</p>
+                  <% } else { %>
+                    <ul>
+                        <% posts.forEach((post) => { %>
+                            <ul>
+                              <li><strong><%= post.title %></strong></li>
+                              <li><%= post.content %></li> 
+                              <li><%= post.date %></li>    
+                              <div class="forms">
+                                    <button><a href="/content/<%= post.id %>">Read</a></button>
+                                    <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
+                                      <button type="submit">Delete</button>
+                                    </form>
+                                    <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
+                                      <button type="submit">Edit</button>
+                                    </form>
+                              </div>                 
+                            </ul>
+                        <% }) %>                      
+                    </ul>
+                <% } %>
+            </div> 
         </div> 
         <button><a href="/profile/<%= user.username %>/edit">Settings</a></button> 
-        <button><a href="/">Back Home</a></button>      
+        <button><a href="/">Home</a></button>      
     </main>
 </body>
 </html>

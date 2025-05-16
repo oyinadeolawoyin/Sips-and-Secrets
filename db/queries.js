@@ -90,6 +90,19 @@ async function updatePost(title, content, id) {
 async function deletePost(postId) {
     await pool.query("DELETE FROM posts WHERE id =$1", [postId]);
 }
+
+async function postByUser(username) {
+    try {
+        const { rows } = await pool.query("SELECT posts.title, posts.content, posts.id, posts.date, profiles.username FROM posts JOIN profiles ON posts.profile_id = profiles.id WHERE username = $1", [username]);
+        if (rows.length === 0) {
+            throw new Error("Post not found");
+        }
+        return rows;
+    } catch (err) {
+        console.error(err.message);
+        throw err;
+    }   
+}
  
 
 module.exports = {
@@ -105,5 +118,6 @@ module.exports = {
     getPosts,
     getPost,
     updatePost,
-    deletePost
+    deletePost,
+    postByUser
 }

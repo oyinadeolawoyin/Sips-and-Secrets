@@ -3,10 +3,9 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 
 async function profile(req, res) {
-    console.log("username", req.user.username);
     let user = await db.getUser(req.user.username);
-    console.log("use", user);
-    res.render("profile", { user });
+    let posts = await db.postByUser(req.user.username);
+    res.render("profile", { user: user, posts: posts });
 }
 
 async function updateForm(req, res) {
@@ -33,9 +32,9 @@ async function updateProfile(req, res) {
 }
 
 async function posterProfile(req, res) {
-    console.log("username", req.params.username);
     let poster = await db.getUser(req.params.username);
-    res.render("postProfile", { poster });
+    let posts = await db.postByUser(req.params.username);
+    res.render("postProfile", { poster, posts });
 }
 
 module.exports = {

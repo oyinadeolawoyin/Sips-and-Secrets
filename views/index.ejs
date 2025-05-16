@@ -36,55 +36,66 @@
             <% } else { %>
                 <ul>
                     <% posts.forEach((post) => { %>
-                        <li>
-                          <p><strong><%= post.title %></strong></p>
-                          <p><%= post.content %></p>
+                        <ul>
+                          <li><strong><%= post.title %></strong></li>
+                          <li><%= post.content %></li>
                           <% if (isAuthenticated && user.admin === true && user.membership === true) { %>
                             <!-- Admin + Member -->
-                            <ul>
-                              <li><a href="/profile/post/<%= post.username %>"><%= post.username %></a></li>
-                              <li><%= post.date %></li>
-                              <div class="forms">
+                            <li>
+                                <a href="/profile/post/<%= post.username %>"><%= post.username %></a>
+                                <br>
+                                <%= post.date %>
+                            </li>
+                            <div class="forms">
+                                <button><a href="/content/<%= post.id %>">Read</a></button>
                                 <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
                                   <button type="submit">Delete</button>
                                 </form>
                                 <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
                                   <button type="submit">Edit</button>
                                 </form>
-                              </div>
-                            </ul>
+                            </div>
                           
                           <% } else if (isAuthenticated && user.admin === true) { %>
                             <!-- Only Admin -->
-                            <ul>
-                              <li><a href="/profile/post/<%= post.username %>"><%= post.username %></a></li>
-                              <li><%= post.date %></li>
-                              <div class="forms">
+                            <li>
+                                <a href="/profile/post/<%= post.username %>"><%= post.username %></a>
+                                <br>
+                                <%= post.date %>
+                            </li>
+                            <div class="forms">
+                                <button><a href="/content/<%= post.id %>">Read</a></button>
                                 <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
                                     <button type="submit">Delete</button>
                                 </form>
                                 <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
                                     <button type="submit">Edit</button>
                                 </form>
-                              </div>
-                            </ul>
+                            </div>
                           
                           <% } else if (isAuthenticated && user.membership === true) { %>
                             <!-- Only Member -->
-                            <ul>
-                              <li><a href="/profile/post/<%= post.username %>"><%= post.username %></a></li>
-                              <li><%= post.date %></li>
-                            </ul>
+                            <li>
+                                <a href="/profile/post/<%= post.username %>"><%= post.username %></a>
+                                <br>
+                                <%= post.date %>
+                            </li>
+                            <div class="form">
+                              <button><a href="/content/<%= post.id %>">Read</a></button>
+                            </div>
                           
                           <% } else { %>
                             <!-- Guest -->
-                            <ul>
-                              <li>Anonymous</li>
-                              <li>XX-XX-XXXX</li>
-                            </ul>
+                            <li>
+                                Anonymous
+                                <br>
+                                XX-XX-XXXX
+                            </li>
+                            <div>
+                              <button><a href="/content/<%= post.id %>">Read</a></button>
+                            </div>
                           <% } %>                          
-                          <button><a href="/content/<%= post.id %>">Read</a></button>
-                        </li>
+                        </ul>
                     <% }) %>                      
                 </ul>
             <% } %>
