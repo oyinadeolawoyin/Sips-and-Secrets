@@ -19,10 +19,7 @@ async function getUsername(username) {
 async function getUser(username) {
     try{
         const { rows } = await pool.query("SELECT * FROM profiles WHERE username = $1", [username]);
-        if (rows.length === 0) {
-            throw new Error("user not found");
-        }
-        return rows[0];
+        return rows[0] || [];
     } catch (err) {
         console.error(err.message);
         throw err;
@@ -49,18 +46,14 @@ async function createMembers(username, membership, admin) {
      [username, membership, admin]);
 }
 
-async function createContent(title, content, id) {
-    await pool.query("INSERT INTO posts (title, content, profile_id ) VALUES ($1, $2, $3)", [title, content, id]);
+async function createContent(title, content, date, id) {
+    await pool.query("INSERT INTO posts (title, content, date, profile_id ) VALUES ($1, $2, $3, $4)", [title, content, date, id]);
 };
 
 async function getPosts() {
     try {
         const { rows } = await pool.query("SELECT posts.title, posts.content, posts.date, posts.id, profiles.username FROM posts JOIN profiles ON posts.profile_id = profiles.id");
-        console.log(rows);
-        if (rows.length === 0) {
-            throw new Error("Posts not found");
-        }
-        return rows;
+        return rows || [];
     }catch (err) {
         console.error(err.message);
         throw err;
@@ -70,10 +63,7 @@ async function getPosts() {
 async function getPost(postId) {
     try {
         const { rows } = await pool.query("SELECT * FROM posts WHERE id =$1", [postId]);
-        if (rows.length === 0) {
-            throw new Error("Post not found");
-        }
-        return rows[0];
+        return rows[0] || [];
     } catch (err) {
         console.error(err.message);
         throw err;
@@ -94,10 +84,7 @@ async function deletePost(postId) {
 async function postByUser(username) {
     try {
         const { rows } = await pool.query("SELECT posts.title, posts.content, posts.id, posts.date, profiles.username FROM posts JOIN profiles ON posts.profile_id = profiles.id WHERE username = $1", [username]);
-        if (rows.length === 0) {
-            throw new Error("Post not found");
-        }
-        return rows;
+        return rows || [];
     } catch (err) {
         console.error(err.message);
         throw err;

@@ -1,0 +1,31 @@
+img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+}
+
+.buttons {
+    width: 70px;
+}
+
+.form {
+    display: flex;
+    gap: 5px;
+}
+
+.status {
+    display: flex;
+    gap: 15px;
+}

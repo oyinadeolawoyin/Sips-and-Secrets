@@ -8,13 +8,13 @@
 <body>
     <header>       
         <h1>Welcome <%= poster.username %>!</h1>
-    </header>
-    <main>
         <div>
             <p><strong>Status:</strong></p>
             <p>Membership: <%= poster.membership ? "Member" : "Not Member" %></p>
             <p>Admin: <%= poster.admin ? "Admin" : "Not Admin" %></p>
         </div> 
+    </header>
+    <main>
         <div>
             <p>Posts</p>
             <% if (posts.length === 0) { %>
@@ -25,15 +25,24 @@
                         <ul>
                           <li><strong><%= post.title %></strong></li>
                           <li><%= post.content %></li> 
-                          <li><%= post.date %></li>
+                          <li><img src="/images/calendar-range.svg" alt="Date">
+                            <%= new Date(post.date).toLocaleString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            }) %></li>
                           <div class="forms">
-                            <button><a href="/content/<%= post.id %>">Read</a></button>
+                                <button><img src="/images/pen.svg" alt="read">
+                                    <a href="/content/<%= post.id %>">Read</a>
+                                <button>
                             <% if (poster.username === user.username) { %>    
                                 <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
-                                    <button type="submit">Delete</button>
+                                    <button type="submit"><img src="/images/delete-forever.svg" alt="delete">Delete</button>
                                 </form>
                                 <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
-                                    <button type="submit">Edit</button>
+                                    <button type="submit"><img src="/images/update.svg" alt="update">Edit</button>
                                 </form>
                             <% } %> 
                          </div>                      

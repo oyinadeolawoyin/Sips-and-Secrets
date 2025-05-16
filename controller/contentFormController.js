@@ -14,8 +14,7 @@ async function createContent(req, res) {
     }   
     try {
         const { title, content } = req.body;
-        console.log("t", title, "c", content, 'u', req.user.id);
-        await db.createContent(title, content, req.user.id);
+        await db.createContent(title, content, new Date(), req.user.id);
           res.redirect("/profile/<%= user.username %>");
     } catch (err) {
         console.log(err.message);
