@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Update Profile</title>
 </head>
 <body>
-    <form action="/profileForm.ejs" method="POST">
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+    <% } %>
+    <form action="/profile/<%= user.username %>/edit" method="POST">
         <label for="firstname">First Name</label>
-        <input type="text" name="firstname" id="firstname" value="firstname">
+        <input type="text" name="firstname" id="firstname" value="<%= user.firstname %>">
         <label for="lastname">Last Name</label>
-        <input type="text" name="lastname" id="lastname" value="lastname">
+        <input type="text" name="lastname" id="lastname" value="<%= user.lastname %>">
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="username">
+        <input type="text" name="username" id="username" value="<%= user.username %>">
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" value="email">
+        <input type="text" id="email" name="email" value="<%= user.email %>">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" value="password">
-        <label for="confirm">Confirm password</label>
-        <input type="password" id="confirm" name="confirm" value="password">
+        <input type="password" id="password" name="password"">
         <button type="submit">Update</button>
     </form>
 </body>

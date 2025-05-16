@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= poster.username %></title>
+</head>
+<body>
+    <header>       
+        <h1>Welcome <%= poster.username %>!</h1>
+    </header>
+    <main>
+        <div>
+            <p><strong>Status:</strong></p>
+            <p>Membership: <%= poster.membership ? "Member" : "Not Member" %></p>
+            <p>Admin: <%= poster.admin ? "Admin" : "Not Admin" %></p>
+        </div>  
+        <% if (poster.username === user.username) { %>
+            <button><a href="/profile/<%= user.username %>/edit">Settings</a></button>
+          <% } %>  
+        <button><a href="/">Back Home</a></button>      
+    </main>
+</body>
+</html>

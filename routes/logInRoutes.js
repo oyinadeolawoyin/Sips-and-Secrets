@@ -7,7 +7,7 @@ const logInController = require("../controller/logInController");
 router.get("/", logInController.logInPage);
 
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/profile',
+    successRedirect: `/profile/<%= req.user.username %>`,
     failureRedirect: '/logIn',
     failureFlash: true
 }));

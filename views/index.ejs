@@ -10,12 +10,85 @@
         <nav>
             <ul>
                 <li>Sips and Secrets</li>
-                <li><a href="/memberForm">Become a member</a></li>
-                <li><a href="/profileForm">Sign up</a></li>
-                <li><a href="/logIn">Log In</a></li>
-                <li><a href="/logOut">Log Out</a></li>
-            </ul>
+                <li><a href="/memberForm">Become a member</a></li> 
+                <% if (isAuthenticated) { %>
+                    <li><a href="/contentForm">Post</a></li> 
+                    <li><a href="/profile/<%= user.username %>">Profile</a></li>
+                    <li><a href="/logOut">Log Out</a></li>
+                  <% } else { %>
+                    <li><a href="/profileForm">Sign up</a></li>
+                    <li><a href="/logIn">Log In</a></li>
+                <% } %>                  
+            </ul>              
         </nav>
+        <main>
+            <h2>All Posts</h2>
+            <% if (errors && errors.length > 0) { %>
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li style="color: red;"><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+
+            <% if (posts.length === 0) { %>
+                <p>No posts found</p>
+            <% } else { %>
+                <ul>
+                    <% posts.forEach((post) => { %>
+                        <li>
+                          <p><strong><%= post.title %></strong></p>
+                          <p><%= post.content %></p>
+                          <% if (isAuthenticated && user.admin === true && user.membership === true) { %>
+                            <!-- Admin + Member -->
+                            <ul>
+                              <li><a href="/profile/post/<%= post.username %>"><%= post.username %></a></li>
+                              <li><%= post.date %></li>
+                              <div class="forms">
+                                <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
+                                  <button type="submit">Delete</button>
+                                </form>
+                                <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
+                                  <button type="submit">Edit</button>
+                                </form>
+                              </div>
+                            </ul>
+                          
+                          <% } else if (isAuthenticated && user.admin === true) { %>
+                            <!-- Only Admin -->
+                            <ul>
+                              <li><a href="/profile/post/<%= post.username %>"><%= post.username %></a></li>
+                              <li><%= post.date %></li>
+                              <div class="forms">
+                                <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
+                                    <button type="submit">Delete</button>
+                                </form>
+                                <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
+                                    <button type="submit">Edit</button>
+                                </form>
+                              </div>
+                            </ul>
+                          
+                          <% } else if (isAuthenticated && user.membership === true) { %>
+                            <!-- Only Member -->
+                            <ul>
+                              <li><a href="/profile/post/<%= post.username %>"><%= post.username %></a></li>
+                              <li><%= post.date %></li>
+                            </ul>
+                          
+                          <% } else { %>
+                            <!-- Guest -->
+                            <ul>
+                              <li>Anonymous</li>
+                              <li>XX-XX-XXXX</li>
+                            </ul>
+                          <% } %>                          
+                          <button><a href="/content/<%= post.id %>">Read</a></button>
+                        </li>
+                    <% }) %>                      
+                </ul>
+            <% } %>
+        </main>
     </header>
 </body>
 </html>
