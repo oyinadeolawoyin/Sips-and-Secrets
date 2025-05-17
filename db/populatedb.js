@@ -1,6 +1,5 @@
 #! /usr/bin/env node
 require('dotenv').config({ path: '../.env' });
-console.log('env', process.env.DATABASE_URL);
 const { Client } = require("pg");
 
 const SQL = `
@@ -30,6 +29,9 @@ async function main() {
   console.log("seeding...");
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   });
   await client.connect();
   await client.query(SQL);
