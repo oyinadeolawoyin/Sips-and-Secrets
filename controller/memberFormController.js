@@ -9,15 +9,15 @@ async function createMember(req, res) {
 
     if (req.isAuthenticated && req.isAuthenticated() && passcodeMember === "MEMBER" && passcodeAdmin === "") {
         await db.createMember(username, true);
-        res.redirect("/profile");
+        res.redirect("/");
     } 
     else if (req.isAuthenticated && req.isAuthenticated() && passcodeMember === "" && passcodeAdmin === "ADMIN") {
         await db.createAdmin(username, true);
-        res.redirect("/profile");
+        res.redirect("/");
     }
     else if (req.isAuthenticated && req.isAuthenticated() && passcodeMember === "MEMBER" && passcodeAdmin === "ADMIN") {
         await db.createMembers(username, true, true);
-        res.redirect(`/profile/${req.user.username}`);
+        res.redirect(`/`);
     }
     else {
         res.render("memberForm", {
