@@ -70,6 +70,7 @@ section > ul {
     display: grid;
     grid-template-columns: repeat(1, 400px);
     margin-left: -50px;
+    gap: 30px;
 }
 
 .settings {
