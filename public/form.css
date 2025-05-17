@@ -64,3 +64,9 @@ textarea {
     height: 100px;
     padding: 10px;
 }
+
+@media (max-width: 500px) {
+    label {
+        margin-bottom: -10px;
+    }
+}
