@@ -126,7 +126,7 @@ section > ul > ul {
     .settings {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 30px;
     }
 
     section > ul {
