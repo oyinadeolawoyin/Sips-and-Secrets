@@ -3,7 +3,6 @@ const db = require("../db/queries")
 async function homePage(req, res) {
     try {
         const posts = await db.getPosts();
-        console.log("post", posts);
         if (!posts) {
             return res.status(404).render("index", {
                 errors: [{ msg: "Posts not found" }],

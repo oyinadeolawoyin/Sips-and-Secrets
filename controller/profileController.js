@@ -3,13 +3,13 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 
 async function profile(req, res) {
-    let user = await db.getUser(req.user.username);
-    let posts = await db.postByUser(req.user.username);
-    res.render("profile", { user: user, posts: posts });
+    let users = await db.getUser(req.params.username);
+    let posts = await db.postByUser(req.params.username);
+    res.render("profile", { user: users, posts: posts });
 }
 
 async function updateForm(req, res) {
-    let user = await db.getUser(req.user.username);
+    let user = await db.getUser(req.params.username);
     res.render("updateProfile", { user });
 }
 
@@ -24,7 +24,7 @@ async function updateProfile(req, res) {
         const { firstname, lastname, email, username, password } = req.body;
           const hashedPassword = await bcrypt.hash(password, 10);
           await db.updateProfile(firstname, lastname, username, email, hashedPassword, req.user.id);
-          res.redirect(`/profile/${req.user.username}`);
+          res.redirect(`/profile/${req.params.username}`);
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Server Error");

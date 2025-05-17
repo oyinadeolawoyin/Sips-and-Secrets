@@ -1,6 +1,13 @@
+body {
+    padding: 10px;
+    background-color: #000000;
+    color: #d4d4d4;
+}
+
 img {
     max-width: 20px;
     max-height: 20px;
+    filter: brightness(0) invert(1);
 }
 
 li {
@@ -9,23 +16,122 @@ li {
 
 a {
     text-decoration: none;
+    color: #c0c0c0;
 }
 
 .button {
     display: flex;
     align-items: center;
+    padding: 5px;
 }
 
 .buttons {
     width: 70px;
+    padding: 5px;
 }
 
 .form {
     display: flex;
     gap: 5px;
+    margin-top: 20px;
 }
 
 .status {
     display: flex;
-    gap: 15px;
+    gap: 45px;
+    justify-content: center;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin: -20px;
+    margin-bottom: 40px;
+    box-shadow: 0px 0px 5px #ffd700;
+}
+
+header > button {
+    background-color: #ffd700;
+    color: #000000;
+}
+
+.posts {
+    font-size: 30px;
+}
+
+main {
+    padding: 20px;
+}
+
+section > ul {
+    display: grid;
+    grid-template-columns: repeat(1, 400px);
+    margin-left: -50px;
+}
+
+.settings {
+    display: flex;
+    gap: 10px;
+}
+
+.settings > button {
+    width: 150px;
+    padding: 8px;
+    background-color: #ffd700;
+}
+
+.settings > button > a {
+    color: #000000;
+}
+
+.butt {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 70px ;
+}
+
+.title {
+    font-size: 20px;
+    color: #6a0dad;
+}
+
+.pro {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    font-size: 20px;
+}
+
+button {
+    background-color: #6a0dad;
+    color: #c0c0c0;color: #c0c0c0;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+section > ul > ul {
+    background-color: #ffd700;
+    color: #000000;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    .settings {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    section > ul {
+        display: grid;
+        grid-template-columns: repeat(1, 300px);
+        margin-left: -50px;
+    }
+
 }

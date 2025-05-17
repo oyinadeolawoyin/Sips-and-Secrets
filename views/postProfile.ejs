@@ -4,26 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= poster.username %></title>
+    <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
     <header>       
-        <h1>Welcome <%= poster.username %>!</h1>
+        <button class="pro"><%= poster.username %></button>
         <div>
-            <p><strong>Status:</strong></p>
-            <p>Membership: <%= poster.membership ? "Member" : "Not Member" %></p>
-            <p>Admin: <%= poster.admin ? "Admin" : "Not Admin" %></p>
+            <div class="status">
+                <p><%= poster.membership ? "Member" : "Not Member" %></p>
+                <p><%= poster.admin ? "Admin" : "Not Admin" %></p>
+            </div>
+            <div class="settings">
+                <% if (poster.username === user.username) { %>
+                    <button><a href="/profile/<%= user.username %>/edit">Settings</a></button>
+                    <button><a href="/logOut">Log Out</a></button>
+                <% } %>  
+                <button><a href="/">Home</a></button> 
+            </div> 
         </div> 
     </header>
     <main>
-        <div>
-            <p>Posts</p>
+        <section>
+            <h2 class="post"><i>Posts</i></h2>
             <% if (posts.length === 0) { %>
                 <p>No posts found</p>
               <% } else { %>
                 <ul>
                     <% posts.forEach((post) => { %>
                         <ul>
-                          <li><strong><%= post.title %></strong></li>
+                          <li class="title"><strong><%= post.title %></strong></li>
                           <li><%= post.content %></li> 
                           <li><img src="/images/calendar-range.svg" alt="Date">
                             <%= new Date(post.date).toLocaleString('en-US', {
@@ -33,16 +42,23 @@
                               hour: '2-digit',
                               minute: '2-digit',
                             }) %></li>
-                          <div class="forms">
-                                <button><img src="/images/pen.svg" alt="read">
-                                    <a href="/content/<%= post.id %>">Read</a>
-                                <button>
+                          <div class="forms form">
+                            <button class="butt">
+                                <img src="/images/pen.svg" alt="read">
+                                <a href="/content/<%= post.id %>">Read</a>
+                            </button>
                             <% if (poster.username === user.username) { %>    
                                 <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
-                                    <button type="submit"><img src="/images/delete-forever.svg" alt="delete">Delete</button>
+                                    <button type="submit" class="butt">
+                                        <img src="/images/delete-forever.svg" alt="delete">
+                                        <li>Delete</li>
+                                    </button>
                                 </form>
                                 <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
-                                    <button type="submit"><img src="/images/update.svg" alt="update">Edit</button>
+                                    <button type="submit" class="butt">
+                                        <img src="/images/update.svg" alt="update">
+                                        <li>Edit</li>
+                                    </button>
                                 </form>
                             <% } %> 
                          </div>                      
@@ -50,11 +66,7 @@
                     <% }) %>                      
                 </ul>
             <% } %>
-        </div> 
-        <% if (poster.username === user.username) { %>
-            <button><a href="/profile/<%= user.username %>/edit">Settings</a></button>
-        <% } %>  
-        <button><a href="/">Home</a></button>      
+        </section>     
     </main>
 </body>
 </html>

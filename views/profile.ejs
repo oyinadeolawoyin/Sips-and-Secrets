@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>       
-        <h1>Welcome <%= user.username %>!</h1>
+        <button class="pro"><%= user.username %></button>
         <div class="div">
             <div class="status">
                 <p><b><%= user.membership ? "Member" : "Not Member" %></b></p>
@@ -16,22 +16,21 @@
             </div>
             <div class="settings">
                 <button><a href="/profile/<%= user.username %>/edit">Settings</a></button> 
+                <button><a href="/logOut">Log Out</a></button>
                 <button><a href="/">Home</a></button>
             </div> 
         </div>
     </header>
-    <main>
-        
-        <div>
-            <div>
-                <p>Posts</p>
+    <main>      
+            <section>
+                <h2 class="post"><i>Posts</i></h2>
                 <% if (posts.length === 0) { %>
                     <p>No posts found</p>
                   <% } else { %>
                     <ul>
                         <% posts.forEach((post) => { %>
                             <ul>
-                              <li><strong><%= post.title %></strong></li>
+                              <li class="title"><strong><%= post.title %></strong></li>
                               <li><%= post.content %></li> 
                               <li class="button">
                                 <img src="/images/calendar-range.svg" alt="Date">
@@ -64,8 +63,7 @@
                         <% }) %>                      
                     </ul>
                 <% } %>
-            </div> 
-        </div>      
+            </section>     
     </main>
 </body>
 </html>
