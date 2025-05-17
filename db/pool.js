@@ -1,5 +1,9 @@
-const { Pool } = require("pg");
-
-module.exports = new Pool({
-  connectionString: process.env.DATABASE_URL
+const { Pool } = require('pg');
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false, // Required for Render's managed PostgreSQL
+    },
 });
+
+module.exports = pool;
