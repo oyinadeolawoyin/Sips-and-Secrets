@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 require('dotenv').config({ path: '../.env' });
+
 const { Client } = require("pg");
 
 const SQL = `
@@ -25,18 +26,34 @@ CREATE TABLE IF NOT EXISTS posts (
 
 `;
 
+
 async function main() {
   console.log("seeding...");
+  
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
       rejectUnauthorized: false,
     },
+    // Force IPv4
+    host: 'db.jnhwdfuwxbgxrxvtoxaj.supabase.co',
+    port: 5432,
+    database: 'postgres',
+    user: 'postgres',
+    password: process.env.DB_PASSWORD || 'anhRPMIkY5HeoCW4'
   });
-  await client.connect();
-  await client.query(SQL);
-  await client.end();
-  console.log("done");
+  
+  try {
+    await client.connect();
+    console.log("✅ Connected to database");
+    await client.query(SQL);
+    console.log("✅ Tables created successfully!");
+  } catch (error) {
+    console.error("❌ Error:", error.message);
+  } finally {
+    await client.end();
+    console.log("done");
+  }
 }
 
 main();
