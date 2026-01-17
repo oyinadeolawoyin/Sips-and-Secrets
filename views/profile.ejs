@@ -11,8 +11,8 @@
         <button class="pro"><%= user.username %></button>
         <div class="div">
             <div class="status">
-                <p><b><%= user.membership ? "Member" : "Not Member" %></b></p>
-                <p><b><%= user.admin ? "Admin" : "Not Admin" %></b></p>
+                <p><%= user.membership ? "✓ Member" : "Not Member" %></p>
+                <p><%= user.admin ? "✓ Admin" : "Not Admin" %></p>
             </div>
             <div class="settings">
                 <button><a href="/profile/<%= user.username %>/edit">Settings</a></button> 
@@ -21,49 +21,53 @@
             </div> 
         </div>
     </header>
+    
     <main>      
-            <section>
-                <h2 class="post"><i>Posts</i></h2>
-                <% if (posts.length === 0) { %>
-                    <p>No posts found</p>
-                  <% } else { %>
-                    <ul>
-                        <% posts.forEach((post) => { %>
-                            <ul>
-                              <li class="title"><strong><%= post.title %></strong></li>
-                              <li><%= post.content %></li> 
-                              <li class="button">
+        <section>
+            <h2 class="post"><i>Posts</i></h2>
+            <% if (posts.length === 0) { %>
+                <p>No posts found</p>
+            <% } else { %>
+                <ul>
+                    <% posts.forEach((post) => { %>
+                        <ul>
+                            <li class="title"><strong><%= post.title %></strong></li>
+                            <li><%= post.content %></li> 
+                            <li>
                                 <img src="/images/calendar-range.svg" alt="Date">
-                                <%= new Date(post.date).toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                }) %></li>  
-                                <div class="form">
-                                    <button class="button buttons">
-                                        <img src="/images/pen.svg" alt="read">
-                                        <a href="/content/<%= post.id %>">Read</a>
+                                <span>
+                                    <%= new Date(post.date).toLocaleString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    }) %>
+                                </span>
+                            </li>  
+                            <div class="form">
+                                <button class="button buttons">
+                                    <img src="/images/pen.svg" alt="read">
+                                    <a href="/content/<%= post.id %>">Read</a>
+                                </button>
+                                <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline; flex: 1;">
+                                    <button type="submit" class="button buttons">
+                                        <img src="/images/delete-forever.svg" alt="delete">
+                                        <span>Delete</span>
                                     </button>
-                                    <form action="/content/<%= post.id %>/delete" method="POST" style="display:inline;">
-                                        <button type="submit" class="button buttons">
-                                            <img src="/images/delete-forever.svg" alt="delete">
-                                            <li>Delete</li>
-                                        </button>
-                                    </form>
-                                    <form action="/content/<%= post.id %>/update" method="GET" style="display:inline;">
-                                        <button type="submit" class="button buttons">
-                                            <img src="/images/update.svg" alt="update">
-                                            <li>Edit</li>
-                                        </button>
-                                    </form>
-                                </div>                
-                            </ul>
-                        <% }) %>                      
-                    </ul>
-                <% } %>
-            </section>     
+                                </form>
+                                <form action="/content/<%= post.id %>/update" method="GET" style="display:inline; flex: 1;">
+                                    <button type="submit" class="button buttons">
+                                        <img src="/images/update.svg" alt="update">
+                                        <span>Edit</span>
+                                    </button>
+                                </form>
+                            </div>                
+                        </ul>
+                    <% }) %>                      
+                </ul>
+            <% } %>
+        </section>     
     </main>
 </body>
 </html>

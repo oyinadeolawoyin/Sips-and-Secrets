@@ -169,10 +169,4 @@ button {
         margin-left: -3px;
         padding: 10px;
     }
-
-    nav > ul {
-        display: flex;
-        gap: 40px;
-        align-items: center;
-    }
 }
